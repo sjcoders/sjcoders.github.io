@@ -79,6 +79,14 @@ body {
     background-color: #fffffd;
 }
 
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    overflow: hidden;
+}
+
 [tabindex="-1"]:focus {
     outline: 0 !important;
 }
