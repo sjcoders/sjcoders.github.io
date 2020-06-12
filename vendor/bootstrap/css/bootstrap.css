@@ -42,6 +42,9 @@
     --font-family-monospace: "Roboto Mono", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
+
+/* background: linear-gradient(to top, #2980b9, #2c3e50); */
+
 *,
 *::before,
 *::after {
@@ -77,14 +80,7 @@ body {
     color: #212529;
     text-align: left;
     background-color: #fffffd;
-}
-
-footer {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    overflow: hidden;
+    height: 100%;
 }
 
 [tabindex="-1"]:focus {
