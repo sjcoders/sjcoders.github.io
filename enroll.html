@@ -118,6 +118,7 @@
               <!-- form for enrollment -->
               <form
                 method="POST"
+                id="enrollForm"
                 action="https://9dd9jekmkg.execute-api.us-west-1.amazonaws.com/prod"
               >
                 <div class="form-row mb-2">
@@ -143,6 +144,7 @@
                       id="inputEmail4"
                       name="pname"
                       placeholder="Parent Name"
+                      required
                     />
                   </div>
                 </div>
@@ -155,6 +157,7 @@
                       id="inputPassword4"
                       name="pemail"
                       placeholder="Parent Email"
+                      required
                     />
                   </div>
                   <div class="form-group col-md-6">
@@ -165,6 +168,7 @@
                       id="inputPassword4"
                       name="pphone"
                       placeholder="Parent Phone Number"
+                      required
                     />
                   </div>
                 </div>
@@ -178,6 +182,7 @@
                       id="inputEmail4 "
                       name="sname"
                       placeholder="Student Name "
+                      required
                     />
                   </div>
                   <div class="form-group col-md-6">
@@ -188,12 +193,39 @@
                       id="inputPassword4"
                       name="semail"
                       placeholder="Student Email "
+                      required
                     />
                   </div>
                 </div>
-                <input type="submit" value="Submit form" />
-                <div id="paypal-button-container"></div>
+                <div
+                  style="width: 50%; margin: auto auto;"
+                  id="paypal-button-container"
+                ></div>
                 <script>
+                  document.getElementById(
+                    "paypal-button-container"
+                  ).style.display = "none";
+                  function checkForm(e) {
+                    var form = document.getElementById("enrollForm");
+                    var inputs = form.getElementsByTagName("input");
+                    for (var i = 0; i < inputs.length; i++) {
+                      if (inputs[i].hasAttribute("required")) {
+                        if (inputs[i].value == "") {
+                          document.getElementById(
+                            "paypal-button-container"
+                          ).style.display = "none";
+                          return;
+                        }
+                      }
+                    }
+                    document.getElementById(
+                      "paypal-button-container"
+                    ).style.display = "block";
+                  }
+                  document
+                    .getElementById("enrollForm")
+                    .addEventListener("keyup", checkForm);
+
                   paypal
                     .Buttons({
                       style: {
@@ -217,6 +249,7 @@
                         return actions.order.capture().then(function (details) {
                           // alert('Transaction completed by ' + details.payer.name.given_name + '!');
                           // need to post form to AWS Lambda
+                          document.getElementById("enrollForm").submit();
                         });
                       },
                     })
