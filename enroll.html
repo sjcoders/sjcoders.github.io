@@ -40,6 +40,9 @@
     <!-- Custom styles for this template -->
     <link href="css/business-frontpage.css" rel="stylesheet">
 
+    <!-- PayPal Script -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AWhV8EVjyZbljZkFyPi51x5S4s3PXrPWaYDbJBi3U7ScTZj6h0LrW_2PSsovKJjjgbVWU90gIBS3zOrk&currency=USD" data-sdk-integration-source="button-factory"></script>
+
 </head>
 
 <body>
@@ -82,25 +85,102 @@
     <div class="container">
 
         <div class="row my-5">
-            <div class="col-md-12">
-            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <!-- form for enrollment -->
+                        <form method="POST" action="https://9dd9jekmkg.execute-api.us-west-1.amazonaws.com/prod">
+                            <div class=" form-row mb-2 ">
+                                <label for=" ">Class Enrolling in:</label>
+                                <select class="custom-select mb-2 ">
+                                    <option selected>Intro To Java</option>
+                                </select>
+                                <ul>
+                                    <li>One hour online classes (Saturday 11 am - 12 am)</li>
+                                    <li>Includes full project system access</li>
+                                    <li>Ten week course</li>
+                                    <li><b>$250 total amount</b></li>
+                                </ul>
+                            </div>
+                            <hr>
+                            <div class="form-row ">
+                                <div class="form-group col-md-12 ">
+                                    <label for="inputEmail4 ">Parent Name</label>
+                                    <input type="email " class="form-control " id="inputEmail4" name="pname" placeholder="Parent Name">
+                                </div>
+                            </div>
+                            <div class="form-row mb-4 ">
+                                <div class="form-group col-md-6 ">
+                                    <label for="inputPassword4 ">Parent Email</label>
+                                    <input type="password " class="form-control " id="inputPassword4" name="pemail" placeholder="Parent Email">
+                                </div>
+                                <div class="form-group col-md-6 ">
+                                    <label for="inputPassword4 ">Parent Phone Number</label>
+                                    <input type="password " class="form-control " id="inputPassword4" name="pphone" placeholder="Parent Phone Number">
+                                </div>
+                            </div>
 
+                            <div class="form-row mb-4 ">
+                                <div class="form-group col-md-6 ">
+                                    <label for="inputEmail4 ">Student Name</label>
+                                    <input type="email " class="form-control " id="inputEmail4 " name="sname" placeholder="Student Name ">
+                                </div>
+                                <div class="form-group col-md-6 ">
+                                    <label for="inputPassword4 ">Student Email</label>
+                                    <input type="password " class="form-control " id="inputPassword4" name="semail" placeholder="Student Email ">
+                                </div>
+                            </div>
+                            <input type="submit" value="Submit form">
+                            <div id="paypal-button-container "></div>
+                            <script>
+                                paypal.Buttons({
+                                    style: {
+                                        shape: 'rect',
+                                        color: 'blue',
+                                        layout: 'vertical',
+                                        label: 'paypal',
+                                    },
+                                    createOrder: function(data, actions) {
+                                        return actions.order.create({
+                                            purchase_units: [{
+                                                amount: {
+                                                    value: '250'
+                                                }
+                                            }]
+                                        });
+                                    },
+                                    onApprove: function(data, actions) {
+                                        return actions.order.capture().then(function(details) {
+                                            // alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                                            // need to post form to AWS Lambda
+                                        });
+                                    }
+                                }).render('#paypal-button-container');
+                            </script>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-2 "></div>
         </div>
     </div>
     </div>
     <!-- /.container -->
 
     <!-- Footer -->
-    <footer class="py-2 bg-dark">
-        <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; SJ Coders 2020</p>
+    <footer class="py-2 bg-dark ">
+        <div class="container ">
+            <p class="m-0 text-center text-white ">Copyright &copy; SJ Coders 2020</p>
         </div>
         <!-- /.container -->
     </footer>
 
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/jquery/jquery.min.js "></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js "></script>
 
 </body>
 
