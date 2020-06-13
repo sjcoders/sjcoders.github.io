@@ -134,31 +134,34 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <label for="inputEmail4 ">Parent Name</label>
-                                    <input type="email " class="form-control" id="inputEmail4" name="pname" placeholder="Parent Name" required />
+                                    <input type="text" class="form-control" id="pname" name="pname" placeholder="Parent Name" required />
                                 </div>
                             </div>
                             <div class="form-row mb-4">
                                 <div class="form-group col-md-6">
                                     <label for="inputPassword4 ">Parent Email</label>
-                                    <input type="password " class="form-control" id="inputPassword4" name="pemail" placeholder="Parent Email" required />
+                                    <input type="email" class="form-control" id="pemail" name="pemail" placeholder="Parent Email" required />
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="inputPassword4 ">Parent Phone Number</label>
-                                    <input type="password " class="form-control" id="inputPassword4" name="pphone" placeholder="Parent Phone Number" required />
+                                    <input type="text" class="form-control" id="pphone" name="pphone" placeholder="Parent Phone Number" required />
                                 </div>
                             </div>
 
                             <div class="form-row mb-4">
                                 <div class="form-group col-md-6">
                                     <label for="inputEmail4 ">Student Name</label>
-                                    <input type="email " class="form-control" id="inputEmail4 " name="sname" placeholder="Student Name " required />
+                                    <input type="text" class="form-control" id="sname " name="sname" placeholder="Student Name" required />
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="inputPassword4 ">Student Email</label>
-                                    <input type="password " class="form-control" id="inputPassword4" name="semail" placeholder="Student Email " required />
+                                    <input type="email" class="form-control" id="semail" name="semail" placeholder="Student Email" required />
                                 </div>
                             </div>
-                            <div style="width: 50%; margin: auto auto;" id="paypal-button-container"></div>
+                            <div style="width: 50%; margin: auto auto;" id="payment-placeholder">
+                                <a class="btn btn-danger disabled" style="width: 100%;">Pay</a>
+                            </div>
+                            <div style="width: 50%; margin: auto auto;" style="display: none;" id="paypal-button-container"></div>
                             <script>
                                 document.getElementById(
                                     "paypal-button-container"
@@ -170,17 +173,20 @@
                                     for (var i = 0; i < inputs.length; i++) {
                                         if (inputs[i].hasAttribute("required")) {
                                             if (inputs[i].value == "") {
-                                                document.getElementById(
-                                                    "paypal-button-container"
-                                                ).style.display = "none";
                                                 return;
                                             }
                                         }
                                     }
-                                    document.getElementById(
-                                        "paypal-button-container"
-                                    ).style.display = "block";
+                                    document.getElementById("enrollForm").classList.add("was-validated");
+
+                                    for (var i = 0; i < inputs.length; i++) {
+                                        if (inputs[i].hasAttribute("required") && inputs[i].checkValidity()) {
+                                            document.getElementById("payment-placeholder").style.display = "none";
+                                            document.getElementById("paypal-button-container").style.display = "block";
+                                        }
+                                    }
                                 }
+
                                 document
                                     .getElementById("enrollForm")
                                     .addEventListener("keyup", checkForm);
