@@ -119,8 +119,8 @@
                             <div class="form-row mb-2">
                                 <label for=" ">Class Enrolling in:</label>
                                 <select class="custom-select mb-2">
-                    <option selected>Intro To Java</option>
-                  </select>
+                                    <option selected>Intro To Java</option>
+                                </select>
                                 <ul>
                                     <li>Middle/High school students</li>
                                     <li>One hour online classes (Saturday 11 am - 12 am)</li>
@@ -179,11 +179,20 @@
                                     }
                                     document.getElementById("enrollForm").classList.add("was-validated");
 
+                                    var checker = true;
                                     for (var i = 0; i < inputs.length; i++) {
-                                        if (inputs[i].hasAttribute("required") && inputs[i].checkValidity()) {
-                                            document.getElementById("payment-placeholder").style.display = "none";
-                                            document.getElementById("paypal-button-container").style.display = "block";
+                                        if (inputs[i].hasAttribute("required")) {
+                                        checker = checker && inputs[i].checkValidity();
                                         }
+                                    }
+
+                                    if (checker) {
+                                        document.getElementById("payment-placeholder").style.display = "none";
+                                        document.getElementById("paypal-button-container").style.display = "block";
+                                    } else {
+                                        document.getElementById("payment-placeholder").style.display = "block";
+                                        document.getElementById("paypal-button-container").style.display = "none";
+
                                     }
                                 }
 
